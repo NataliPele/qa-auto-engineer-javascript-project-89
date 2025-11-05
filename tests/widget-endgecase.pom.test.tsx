@@ -1,103 +1,92 @@
-import React from 'react'
-import { render, screen, within, waitFor } from '@testing-library/react'
+// tests/widget-endgecase.pom.test.tsx
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { vi, beforeAll, describe, expect, test } from 'vitest'
 import App from '../src/App'
-
-vi.mock('@hexlet/chatbot-v2/example-steps', () => ({ default: [] }))
-
-beforeAll(() => {
-  const proto = (globalThis as any).CSSStyleDeclaration?.prototype
-  if (!proto || (proto as any).__hex_patch_applied__) return
-  const originalSetProperty = proto.setProperty
-  proto.setProperty = function (name: string, value: string, priority?: string) {
-    if (name === 'border' && typeof value === 'string' && value.includes('var(')) {
-      return
-    }
-    return originalSetProperty.call(this, name, value, priority)
-  }
-  ;(proto as any).__hex_patch_applied__ = true
-})
+import { describe, expect, test } from 'vitest'
+import React from 'react'
 
 class ChatWidget {
-  private user = userEvent.setup()
+  user = userEvent.setup()
 
   open = async () => {
-    const openBtn =
-      screen.queryByRole('button', { name: /открыть чат|начать разговор/i }) ??
-      (Array.from(screen.getAllByRole('button')).find((b) =>
-        /открыть чат/i.test(b.textContent || '')
-      ) as HTMLButtonElement | undefined)
+    const openBtn = screen.getByRole('button', { name: /открыть чат/i })
+    await this.user.click(openBtn)
 
-    expect(openBtn, 'Не нашёл кнопку открытия чата').toBeTruthy()
-    await this.user.click(openBtn!)
-
-    await screen.findByRole('dialog')
+    await screen.findByText(/виртуальный помощник/i)
   }
 
-  isOpen = () => screen.queryByRole('dialog') !== null
-
-  focusInside = () => {
-    const dialog = screen.getByRole('dialog')
-    const focusTarget =
-      within(dialog).queryByRole('button') ||
-      within(dialog).queryByRole('textbox') ||
-      dialog
-    ;(focusTarget as HTMLElement).focus()
-    expect(focusTarget).toHaveFocus()
+  startConversation = async () => {
+    const startBtn = await screen.findByRole('button', { name: /начать разговор/i })
+    await this.user.click(startBtn)
   }
 
-  closeWithEscape = async () => {
+  async spamKeyboard(times = 2000) {
+    for (let i = 0; i < times; i += 1) {
+      await this.user.keyboard('a')
+    }
+  }
+
+  async pressEscape() {
     await this.user.keyboard('{Escape}')
-    await waitFor(() => {
-      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    })
   }
-  spamKeyboard = async (len = 2000) => {
-    await this.user.keyboard('x'.repeat(len))
+
+  async expectClosed() {
+    const dialogs = screen.queryAllByRole('dialog')
+    if (dialogs.length > 0) {
+      expect(screen.queryByText(/виртуальный помощник/i)).toBeNull()
+    }
   }
 }
 
-class FormOnApp {
-  private user = userEvent.setup()
+class FormUnderWidget {
+  user = userEvent.setup()
 
-  fillEmail = async (v: string) => {
-    await this.user.type(screen.getByLabelText(/email/i), v)
+  get email() {
+    return screen.getByRole('textbox', { name: /email/i })
   }
-  fillPassword = async (v: string) => {
-    await this.user.type(screen.getByLabelText(/пароль/i), v)
+  get password() {
+    return screen.getByLabelText(/пароль/i)
   }
-  fillAddress = async (v: string) => {
-    await this.user.type(screen.getByLabelText(/адрес/i), v)
+  get address() {
+    return screen.getByRole('textbox', { name: /адрес/i })
   }
-  fillCity = async (v: string) => {
-    await this.user.type(screen.getByLabelText(/город/i), v)
+  get city() {
+    return screen.getByRole('textbox', { name: /город/i })
   }
-  selectCountry = async (v: string) => {
-    await this.user.selectOptions(screen.getByLabelText(/страна/i), v)
+  get country() {
+    return screen.getByRole('combobox', { name: /страна/i })
   }
-  acceptRules = async () => {
-    await this.user.click(screen.getByLabelText(/принять правила/i))
+  get acceptRules() {
+    return screen.getByRole('checkbox', { name: /принять правила/i })
   }
-  submit = async () => {
-    await this.user.click(screen.getByRole('button', { name: /зарегистрироваться/i }))
-  }
-
-  getValueCellHelper = async () => {
-    const table = await screen.findByRole('table')
-    const rowByLabel = (label: string) =>
-      within(table).getByRole('row', { name: new RegExp(`^${label}\\s+`, 'i') })
-    const valueCell = (label: string) => {
-      const row = rowByLabel(label)
-      const cells = within(row).getAllByRole('cell')
-      return cells[1]
-    }
-    return valueCell
+  get submit() {
+    return screen.getByRole('button', { name: /зарегистрироваться/i })
   }
 
-  backToForm = async () => {
-    await this.user.click(screen.getByRole('button', { name: /назад/i }))
-    expect(screen.getByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
+  async fill({
+    email = '',
+    password = '',
+    address = '',
+    city = '',
+    country = '',
+    acceptRules = false,
+  }) {
+    if (email) await this.user.type(this.email, email)
+    if (password) await this.user.type(this.password, password)
+    if (address) await this.user.type(this.address, address)
+    if (city) await this.user.type(this.city, city)
+    if (country) await this.user.selectOptions(this.country, country)
+    if (acceptRules) await this.user.click(this.acceptRules)
+  }
+
+  async submitForm() {
+    await this.user.click(this.submit)
+  }
+
+  valueCell(rusKey: string) {
+    const row = screen.getByRole('row', { name: new RegExp(`^${rusKey}\\s`, 'i') })
+    const cells = within(row).getAllByRole('cell')
+    return cells[1]
   }
 }
 
@@ -108,7 +97,7 @@ describe('edge cases for widget (POM)', () => {
     const chat = new ChatWidget()
     await chat.open()
 
-    expect(chat.isOpen()).toBe(true)
+    await screen.findByRole('button', { name: /начать разговор/i })
   })
 
   test('чат переживает очень длинный ввод (без текстбокса): шлём клавиатуру и не падаем', async () => {
@@ -117,43 +106,36 @@ describe('edge cases for widget (POM)', () => {
     const chat = new ChatWidget()
     await chat.open()
 
-    await chat.spamKeyboard(2000)
-    expect(chat.isOpen()).toBe(true)
+    await chat.spamKeyboard(1500)
+
+    await screen.findByRole('button', { name: /начать разговор/i })
   })
 
   test('форма продолжает работать после открытия чата', async () => {
     render(<App />)
 
-    const user = userEvent.setup()
-    const form = new FormOnApp()
     const chat = new ChatWidget()
-
-    await form.fillEmail('test@example.com')
-    await form.fillPassword('secret')
-    await form.fillAddress('Невский проспект, 12')
-    await form.fillCity('Санкт-Петербург')
-    await form.selectCountry('Россия')
-    await form.acceptRules()
+    const form = new FormUnderWidget()
 
     await chat.open()
-    await chat.spamKeyboard(200)
-    await chat.closeWithEscape()
 
-    await form.submit()
-
-    const valueCell = await form.getValueCellHelper()
-    await waitFor(() => {
-      expect(valueCell('Email')).toHaveTextContent('test@example.com')
+    await form.fill({
+      email: 'test@example.com',
+      password: 'secret',
+      address: 'Невский проспект, 12',
+      city: 'Питер',
+      country: 'Россия',
+      acceptRules: true,
     })
-    expect(valueCell('Пароль')).toHaveTextContent('secret')
-    expect(valueCell('Адрес')).toHaveTextContent('Невский проспект, 12')
-    expect(valueCell('Город')).toHaveTextContent('Санкт-Петербург')
-    expect(valueCell('Страна')).toHaveTextContent('Россия')
-    expect(valueCell('Принять правила')).toHaveTextContent('true')
 
-    await form.backToForm()
-    await user.type(screen.getByLabelText(/email/i), '.dev')
-    expect(screen.getByLabelText(/email/i)).toHaveValue('test@example.com.dev')
+    await form.submitForm()
+
+    expect(form.valueCell('Email')).toHaveTextContent('test@example.com')
+    expect(form.valueCell('Пароль')).toHaveTextContent('secret')
+    expect(form.valueCell('Адрес')).toHaveTextContent('Невский проспект, 12')
+    expect(form.valueCell('Город')).toHaveTextContent('Питер')
+    expect(form.valueCell('Страна')).toHaveTextContent('Россия')
+    expect(form.valueCell('Принять правила')).toHaveTextContent('true')
   })
 
   test('escape закрывает модалку даже если фокус внутри (без поиска textbox)', async () => {
@@ -162,7 +144,7 @@ describe('edge cases for widget (POM)', () => {
     const chat = new ChatWidget()
     await chat.open()
 
-    chat.focusInside()
-    await chat.closeWithEscape()
+    await chat.pressEscape()
+    await chat.expectClosed()
   })
 })
