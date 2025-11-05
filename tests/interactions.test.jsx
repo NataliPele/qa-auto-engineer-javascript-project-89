@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
 /// <reference types="vitest/globals" />
 
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Widget from '@hexlet/chatbot-v2'
 import steps from '../__fixtures__/steps.basic'
 
-// sanity-check, чтобы файл точно содержал хотя бы один тест
 test('sanity: vitest видит тесты', () => {
   expect(true).toBe(true)
 })
@@ -57,7 +56,7 @@ test('новое сообщение вызывает scrollIntoView', async () =
   const user = userEvent.setup()
   const original = Element.prototype.scrollIntoView
   const spy = vi.fn()
-  // eslint-disable-next-line no-extend-native
+
   Element.prototype.scrollIntoView = spy
   try {
     render(Widget(steps))
