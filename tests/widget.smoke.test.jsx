@@ -3,7 +3,7 @@
 
 import { render, screen } from '@testing-library/react'
 import Widget from '@hexlet/chatbot-v2'
-import steps from '@hexlet/chatbot-v2/example-steps'
+import steps from '../src/steps.basic.js'
 
 test('чат-бот рендерится без ошибок (есть кнопка "Открыть Чат")', () => {
     render(Widget(steps))

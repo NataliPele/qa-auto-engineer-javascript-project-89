@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
 import Widget from '@hexlet/chatbot-v2'
-import steps from '@hexlet/chatbot-v2/example-steps'
+import steps from './steps.basic.js'
 import '@hexlet/chatbot-v2/styles'
 
 const fallbackSteps = [
-  {
-    id: 'empty',
-    message: 'Бот запущен без сценария. Это ок для теста 👍',
-    end: true,
-  },
+  { id: 'empty', message: 'Бот запущен без сценария. Это ок для теста 👍', end: true },
 ]
 
 const App = () => {
@@ -27,9 +23,7 @@ const App = () => {
     setForm({ ...form, [target.name]: value })
   }
 
-  const handleBackToForm = () => {
-    setSubmittingState('fillingForm')
-  }
+  const handleBackToForm = () => setSubmittingState('fillingForm')
 
   const handleSubmitForm = (e) => {
     e.preventDefault()
@@ -69,9 +63,7 @@ const App = () => {
   const renderForm = () => (
     <form className="m-3" onSubmit={handleSubmitForm} name="myForm">
       <div className="col-md-6 mb-3">
-        <label htmlFor="email" className="col-form-label">
-          Email
-        </label>
+        <label htmlFor="email" className="col-form-label">Email</label>
         <input
           autoComplete="on"
           type="email"
@@ -84,9 +76,7 @@ const App = () => {
         />
       </div>
       <div className="col-md-6 mb-3">
-        <label htmlFor="password" className="col-form-label">
-          Пароль
-        </label>
+        <label htmlFor="password" className="col-form-label">Пароль</label>
         <input
           autoComplete="on"
           type="password"
@@ -99,9 +89,7 @@ const App = () => {
         />
       </div>
       <div className="col-md-6 mb-3">
-        <label htmlFor="address" className="col-form-label">
-          Адрес
-        </label>
+        <label htmlFor="address" className="col-form-label">Адрес</label>
         <textarea
           type="text"
           name="address"
@@ -113,9 +101,7 @@ const App = () => {
         />
       </div>
       <div className="col-md-6 mb-3">
-        <label htmlFor="city" className="col-form-label">
-          Город
-        </label>
+        <label htmlFor="city" className="col-form-label">Город</label>
         <input
           autoComplete="on"
           type="text"
@@ -127,9 +113,7 @@ const App = () => {
         />
       </div>
       <div className="col-md-6 mb-3">
-        <label htmlFor="country" className="col-form-label">
-          Страна
-        </label>
+        <label htmlFor="country" className="col-form-label">Страна</label>
         <select
           id="country"
           name="country"
@@ -159,9 +143,7 @@ const App = () => {
           </label>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">
-        Зарегистрироваться
-      </button>
+      <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
     </form>
   )
 
