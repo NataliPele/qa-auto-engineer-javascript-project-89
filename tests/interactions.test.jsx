@@ -26,10 +26,8 @@ test('закрытие модалки по крестику', async () => {
   
   await user.click(screen.getByRole('button', { name: /открыть чат/i }))
   
-  // Кликаем на кнопку "Close" в хедере модалки
   await user.click(await screen.findByRole('button', { name: /close/i }))
   
-  // Даем времени на анимацию/размонтирование
   await waitFor(() => {
     expect(screen.queryByRole('dialog')).toBeNull()
     })
