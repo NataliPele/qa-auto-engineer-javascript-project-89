@@ -1,17 +1,13 @@
 /* eslint-disable no-undef */
-import '@testing-library/jest-dom/vitest'
-import { afterEach } from 'vitest'
-import { cleanup } from '@testing-library/react'
+// vitest.setup.js
+import { expect } from 'vitest'
+import * as matchers from '@testing-library/jest-dom/matchers'
+import '@testing-library/jest-dom'
 
-if (!Element.prototype.scrollIntoView) {
-  Element.prototype.scrollIntoView = function scrollIntoView() {}
-}
-
-afterEach(() => {
-  cleanup()
-})
+expect.extend(matchers)
 
 const originalSetProperty = CSSStyleDeclaration.prototype.setProperty
+
 beforeAll(() => {
   CSSStyleDeclaration.prototype.setProperty = function (prop, value, priority) {
     try {
