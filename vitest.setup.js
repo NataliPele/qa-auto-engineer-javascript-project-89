@@ -1,10 +1,13 @@
 /* eslint-disable no-undef */
-// vitest.setup.js
-import { expect } from 'vitest'
+import { expect, vi } from 'vitest'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import '@testing-library/jest-dom'
 
 expect.extend(matchers)
+
+if (!Element.prototype.scrollIntoView) {
+  Element.prototype.scrollIntoView = vi.fn()
+}
 
 const originalSetProperty = CSSStyleDeclaration.prototype.setProperty
 
@@ -14,7 +17,9 @@ beforeAll(() => {
       if (prop === 'border' && typeof value === 'string' && value.includes('var(')) {
         return
       }
-    } catch { /* empty */ }
+    } catch {
+      // noop
+    }
     return originalSetProperty.call(this, prop, value, priority)
   }
 })

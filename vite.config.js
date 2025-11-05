@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename)
 
 const emptyCss = path.resolve(__dirname, 'src/__mocks__/empty.css')
 
-const stepsBasic = path.resolve(__dirname, '__fixtures__/steps.basic.js')
+const stepsBasic = path.resolve(__dirname, 'src/steps.basic.js')
 
 export default defineConfig({
   plugins: [react()],
