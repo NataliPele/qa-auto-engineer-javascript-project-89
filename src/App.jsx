@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import Widget from '@hexlet/chatbot-v2'
 import steps from './steps.basic.js'
-import '@hexlet/chatbot-v2/styles'
 
 const fallbackSteps = [
-  { id: 'empty', message: 'Бот запущен без сценария. Это ок для теста 👍', end: true },
+  { id: 'empty', message: 'Бот запущен без сценария дл теста', end: true },
 ]
 
 const EMPTY_PLACEHOLDER = '—'
