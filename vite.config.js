@@ -8,15 +8,12 @@ const __dirname = path.dirname(__filename)
 
 const emptyCss = path.resolve(__dirname, 'src/__mocks__/empty.css')
 
-const stepsBasic = path.resolve(__dirname, 'src/steps.basic.js')
-
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
       '@hexlet/chatbot-v2/dist/init.css': emptyCss,
       '@hexlet/chatbot-v2/styles': emptyCss,
-      '@hexlet/chatbot-v2/example-steps': stepsBasic,
     },
   },
   test: {

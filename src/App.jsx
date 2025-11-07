@@ -7,6 +7,21 @@ const fallbackSteps = [
   { id: 'empty', message: 'Бот запущен без сценария. Это ок для теста 👍', end: true },
 ]
 
+const EMPTY_PLACEHOLDER = '—'
+
+const asCellText = (v) => {
+  if (v == null) return EMPTY_PLACEHOLDER
+  const s = typeof v === 'boolean' ? String(v) : String(v)
+  return s === '' ? EMPTY_PLACEHOLDER : s
+}
+
+const asCellAria = (v) => {
+  if (v == null) return ' '
+  if (typeof v === 'boolean') return String(v)
+  const s = String(v).trim()
+  return s === '' ? ' ' : s
+}
+
 const App = () => {
   const [form, setForm] = useState({
     email: '',
@@ -20,7 +35,7 @@ const App = () => {
 
   const handleChangeField = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value
-    setForm({ ...form, [target.name]: value })
+    setForm((prev) => ({ ...prev, [target.name]: value }))
   }
 
   const handleBackToForm = () => setSubmittingState('fillingForm')
@@ -39,21 +54,27 @@ const App = () => {
     acceptRules: 'Принять правила',
   }
 
-  const renderRow = (key) => (
-    <tr key={key}>
-      <td>{enToRus[key]}</td>
-      <td>{form[key].toString()}</td>
-    </tr>
-  )
+  const renderRow = (key) => {
+    const rus = enToRus[key]
+    const ariaValue = asCellAria(form[key])
+    const label = `${rus}${ariaValue === ' ' ? '\u00A0' : ' ' + ariaValue}`
+  
+    return (
+      <tr key={key} role="row" aria-label={label}>
+        <td role="cell">{rus}</td>
+        <td role="cell">{asCellText(form[key])}</td>
+      </tr>
+    )
+  }
 
   const renderResult = () => {
     const keys = Object.keys(form).sort()
     return (
-      <div className="m-3">
+      <div className="m-3" role="region" aria-label="Результат отправки формы">
         <button type="button" className="btn btn-primary" onClick={handleBackToForm}>
           Назад
         </button>
-        <table className="table">
+        <table className="table" role="table" aria-label="Итоги формы">
           <tbody>{keys.map(renderRow)}</tbody>
         </table>
       </div>
@@ -143,7 +164,9 @@ const App = () => {
           </label>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
+      <button type="submit" className="btn btn-primary">
+        Зарегистрироваться
+      </button>
     </form>
   )
 
