@@ -23,14 +23,14 @@ test('клик по "Открыть Чат" показывает модалку 
 test('закрытие модалки по крестику', async () => {
   const user = userEvent.setup()
   render(Widget(steps))
-  
+
   await user.click(screen.getByRole('button', { name: /открыть чат/i }))
-  
+
   await user.click(await screen.findByRole('button', { name: /close/i }))
-  
+
   await waitFor(() => {
     expect(screen.queryByRole('dialog')).toBeNull()
-    })
+  })
 })
 
 test('переход: "Начать разговор" → следующий шаг', async () => {
@@ -61,7 +61,8 @@ test('новое сообщение вызывает scrollIntoView', async () =
     await user.click(screen.getByRole('button', { name: /открыть чат/i }))
     await user.click(await screen.findByRole('button', { name: /начать разговор/i }))
     expect(spy).toHaveBeenCalled()
-  } finally {
+  } finally 
+  {
     Element.prototype.scrollIntoView = original
   }
 })

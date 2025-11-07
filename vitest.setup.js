@@ -17,9 +17,8 @@ beforeAll(() => {
       if (prop === 'border' && typeof value === 'string' && value.includes('var(')) {
         return
       }
-    } catch {
-      // noop
-    }
+    } catch {// noop 
+      }
     return originalSetProperty.call(this, prop, value, priority)
   }
 })

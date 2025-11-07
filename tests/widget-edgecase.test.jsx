@@ -2,7 +2,6 @@ import React from 'react'
 import { describe, test, expect, beforeAll } from 'vitest'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
 import App from '../src/App.jsx'
 
 beforeAll(() => {

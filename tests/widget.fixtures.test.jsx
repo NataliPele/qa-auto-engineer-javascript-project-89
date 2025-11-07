@@ -17,17 +17,16 @@ test('виджет открывается и отображает первый �
 })
 
 test('переход на шаг "start" и возврат назад работает по фикстуре', async () => {
-    const user = userEvent.setup()
-    render(Widget(steps))
+  const user = userEvent.setup()
+  render(Widget(steps))
 
-    await user.click(screen.getByRole('button', { name: /открыть чат/i }))
-    const startBtn = await screen.findByRole('button', { name: /начать разговор/i })
-    expect(startBtn).toBeInTheDocument()
-  
-    await user.click(startBtn)
-    expect(screen.queryByRole('button', { name: /начать разговор/i })).toBeNull()
+  await user.click(screen.getByRole('button', { name: /открыть чат/i }))
+  const startBtn = await screen.findByRole('button', { name: /начать разговор/i })
+  expect(startBtn).toBeInTheDocument()
 
-    await user.click(await screen.findByRole('button', { name: /назад/i }))
-    expect(await screen.findByRole('button', { name: /начать разговор/i })).toBeInTheDocument()
+  await user.click(startBtn)
+  expect(screen.queryByRole('button', { name: /начать разговор/i })).toBeNull()
+
+  await user.click(await screen.findByRole('button', { name: /назад/i }))
+  expect(await screen.findByRole('button', { name: /начать разговор/i })).toBeInTheDocument()
   })
-  

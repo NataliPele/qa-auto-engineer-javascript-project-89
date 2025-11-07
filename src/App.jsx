@@ -58,12 +58,12 @@ const App = () => {
     const ariaValue = asCellAria(form[key])
     const label = `${rus}${ariaValue === ' ' ? '\u00A0' : ' ' + ariaValue}`
   
-    return (
-      <tr key={key} role="row" aria-label={label}>
-        <td role="cell">{rus}</td>
-        <td role="cell">{asCellText(form[key])}</td>
-      </tr>
-    )
+  return (
+    <tr key={key} role="row" aria-label={label}>
+      <td role="cell">{rus}</td>
+      <td role="cell">{asCellText(form[key])}</td>
+    </tr>
+  )
   }
 
   const renderResult = () => {
