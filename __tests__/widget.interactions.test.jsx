@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-// __tests__/widget.interactions.test.jsx
 import { render, screen } from '@testing-library/react'
 import Widget from '@hexlet/chatbot-v2'
 import steps from '../__fixtures__/steps.basic.js'

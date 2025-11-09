@@ -1,10 +1,5 @@
-// __fixtures__/steps.edge.js
-
-// A. Пустой набор шагов
 export const stepsEmpty = []
 
-// B. Нет welcome-шага (обычно стартовая кнопка «Начать разговор» там)
-//   Проверяем, что диалог всё равно открывается и приложение не падает.
 export const stepsNoWelcome = [
   {
     id: 'start',
@@ -13,7 +8,6 @@ export const stepsNoWelcome = [
   },
 ]
 
-// C. Переход на несуществующий шаг
 export const stepsGhostTarget = [
   {
     id: 'welcome',
@@ -23,12 +17,10 @@ export const stepsGhostTarget = [
   {
     id: 'start',
     messages: ['Шаг старт'],
-    // Кнопка ведёт на несуществующий id
     buttons: [{ text: 'Дальше', nextStepId: 'no_such_step', type: 'button' }],
   },
 ]
 
-// D. Шаг без сообщений и без кнопок
 export const stepsEmptyStep = [
   {
     id: 'welcome',
@@ -42,7 +34,6 @@ export const stepsEmptyStep = [
   },
 ]
 
-// E. Минимальный корректный сценарий для «быстрых кликов»
 export const stepsMinimal = [
   {
     id: 'welcome',

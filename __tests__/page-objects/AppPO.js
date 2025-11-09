@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
-// __tests__/page-objects/AppPO.js
 import { screen, within } from '@testing-library/react'
 import { setupUser } from '../utils/test-utils.js'
 
 export class AppPO {
   constructor() {
-    this.user = setupUser()   // ← тоже обычный объект
+    this.user = setupUser()
   }
 
   async fillForm({

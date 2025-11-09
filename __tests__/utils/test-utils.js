@@ -1,4 +1,3 @@
-// __tests__/utils/test-utils.js
 import { screen, within } from '@testing-library/react'
 import * as userEvent from '@testing-library/user-event'
 

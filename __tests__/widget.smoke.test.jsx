@@ -9,14 +9,11 @@ describe('Чат-бот: smoke', () => {
     const user = userEvent.default ? userEvent.default.setup() : userEvent.setup()
     render(Widget(steps))
 
-    // изначально видна только плавающая кнопка
     const toggleBtn = screen.getByRole('button', { name: /открыть чат/i })
     expect(toggleBtn).toBeInTheDocument()
 
-    // открываем виджет
     await user.click(toggleBtn)
 
-    // проверяем появление стартовой кнопки
     const startBtn = await screen.findByRole('button', { name: /начать разговор/i })
     expect(startBtn).toBeInTheDocument()
   })

@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-// __tests__/app.integration.test.jsx
 import { render, screen } from '@testing-library/react'
 import App from '../src/App.jsx'
 import { AppPO } from './page-objects/AppPO.js'
@@ -15,7 +14,6 @@ describe('Интеграция виджета с хост-приложением
     await app.expectResultTable()
     await app.back()
 
-    // форма снова доступна
     expect(screen.getByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
   })
 
@@ -28,7 +26,6 @@ describe('Интеграция виджета с хост-приложением
     await widget.closeByEsc()
     widget.expectDialogGone()
 
-    // элементы хост-приложения доступны
     expect(screen.getByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
   })
 })

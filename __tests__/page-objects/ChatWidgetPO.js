@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-// __tests__/page-objects/ChatWidgetPO.js
 import {
   setupUser,
   getToggleBtn,
@@ -12,7 +11,7 @@ import { screen } from '@testing-library/react'
 
 export class ChatWidgetPO {
   constructor() {
-    this.user = setupUser()   // ← это обычный объект, не промис
+    this.user = setupUser()
     this.dialog = null
   }
 
