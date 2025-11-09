@@ -14,7 +14,7 @@ describe('Интеграция виджета с хост-приложением
     await app.expectResultTable()
     await app.back()
 
-    expect(screen.getByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
   })
 
   test('виджет встраивается, запускается и не ломает хост-приложение', async () => {
@@ -26,6 +26,6 @@ describe('Интеграция виджета с хост-приложением
     await widget.closeByEsc()
     widget.expectDialogGone()
 
-    expect(screen.getByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /зарегистрироваться/i })).toBeInTheDocument()
   })
 })

@@ -36,7 +36,7 @@ const App = () => {
     acceptRules: 'Принять правила',
   }
 
-  const renderRow = (key) => (
+  const renderRow = key => (
     <tr key={key}>
       <td>{enToRus[key]}</td>
       <td>{form[key].toString()}</td>

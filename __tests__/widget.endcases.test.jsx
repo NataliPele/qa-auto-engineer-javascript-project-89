@@ -17,7 +17,7 @@ describe('Чат-бот: крайние случаи', () => {
     const user = setupUser()
     render(Widget(stepsEmpty))
 
-    const toggleBtn = screen.getByRole('button', { name: /открыть чат/i })
+    const toggleBtn = await screen.findByRole('button', { name: /открыть чат/i })
     await user.click(toggleBtn)
 
     const dialog = await screen.findByRole('dialog')
@@ -29,7 +29,7 @@ describe('Чат-бот: крайние случаи', () => {
     const user = setupUser()
     render(Widget(stepsNoWelcome))
 
-    await user.click(screen.getByRole('button', { name: /открыть чат/i }))
+    await user.click(await screen.findByRole('button', { name: /открыть чат/i }))
     expect(await screen.findByRole('dialog')).toBeInTheDocument()
   })
 

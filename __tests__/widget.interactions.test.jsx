@@ -12,7 +12,7 @@ describe('Чат-бот: взаимодействия (PO)', () => {
     widget.expectDialogPresent()
     await widget.closeByX()
     widget.expectDialogGone()
-    expect(screen.getByRole('button', { name: /открыть чат/i })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /открыть чат/i })).toBeInTheDocument()
   })
 
   test('открытие / закрытие по Esc', async () => {

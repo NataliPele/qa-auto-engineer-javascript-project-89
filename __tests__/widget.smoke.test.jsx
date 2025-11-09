@@ -9,7 +9,7 @@ describe('Чат-бот: smoke', () => {
     const user = userEvent.default ? userEvent.default.setup() : userEvent.setup()
     render(Widget(steps))
 
-    const toggleBtn = screen.getByRole('button', { name: /открыть чат/i })
+    const toggleBtn = await screen.findByRole('button', { name: /открыть чат/i })
     expect(toggleBtn).toBeInTheDocument()
 
     await user.click(toggleBtn)

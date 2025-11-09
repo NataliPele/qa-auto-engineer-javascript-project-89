@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import {
   setupUser,
-  getToggleBtn,
+  findToggleBtn,
   findDialog,
   findStartBtn,
   closeByX,
@@ -16,7 +16,8 @@ export class ChatWidgetPO {
   }
 
   async open() {
-    await this.user.click(getToggleBtn())
+    const btn = await findToggleBtn()
+    await this.user.click(btn)
     this.dialog = await findDialog()
     return this
   }
