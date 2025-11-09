@@ -15,7 +15,7 @@ const setupUser = () => (userEvent.default ? userEvent.default.setup() : userEve
 describe('Чат-бот: крайние случаи', () => {
   test('пустой набор шагов: виджет открывается, не падает', async () => {
     const user = setupUser()
-    render(Widget(stepsEmpty))
+    render(<Widget steps={stepsEmpty} />)
 
     const toggleBtn = await screen.findByRole('button', { name: /открыть чат|начать разговор/i })
     await user.click(toggleBtn)
@@ -27,7 +27,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('нет welcome-шага: открытие диалога без падения', async () => {
     const user = setupUser()
-    render(Widget(stepsNoWelcome))
+    render(<Widget steps={stepsNoWelcome} />)
 
     await user.click(await screen.findByRole('button', { name: /открыть чат|начать разговор/i }))
     expect(await screen.findByRole('dialog')).toBeInTheDocument()
@@ -35,7 +35,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('переход на несуществующий шаг: не бросает ошибок, диалог остаётся живым', async () => {
     const user = setupUser()
-    render(Widget(stepsGhostTarget))
+    render(<Widget steps={stepsGhostTarget} />)
 
     await user.click(await screen.findByRole('button', { name: /открыть чат|начать разговор/i }))
     await user.click(await screen.findByRole('button', { name: /начать разговор/i }))
@@ -49,7 +49,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('шаг без сообщений и кнопок: не падает, диалог остаётся', async () => {
     const user = setupUser()
-    render(Widget(stepsEmptyStep))
+    render(<Widget steps={stepsEmptyStep} />)
 
     await user.click(await screen.findByRole('button', { name: /открыть чат|начать разговор/i }))
     await user.click(await screen.findByRole('button', { name: /начать разговор/i }))
@@ -62,7 +62,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('быстрые/двойные клики и повторное закрытие не ломают виджет', async () => {
     const user = setupUser()
-    render(Widget(stepsMinimal))
+    render(<Widget steps={stepsMinimal} />)
 
     const toggleBtn = await screen.findByRole('button', { name: /открыть чат|начать разговор/i })
     await user.dblClick(toggleBtn)

@@ -7,7 +7,7 @@ import steps from '../__fixtures__/steps.basic.js'
 describe('Чат-бот: smoke', () => {
   test('рендерится и открывается (видна кнопка "Начать разговор")', async () => {
     const user = userEvent.default ? userEvent.default.setup() : userEvent.setup()
-    render(Widget(steps))
+    render(<Widget steps={steps} />)
 
     const toggleBtn = await screen.findByRole('button', { name: /открыть чат|начать разговор/i })
     expect(toggleBtn).toBeInTheDocument()

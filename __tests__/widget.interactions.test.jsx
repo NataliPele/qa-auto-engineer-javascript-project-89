@@ -6,7 +6,7 @@ import { ChatWidgetPO } from './page-objects/ChatWidgetPO.js'
 
 describe('Чат-бот: взаимодействия (PO)', () => {
   test('открытие / закрытие по крестику', async () => {
-    render(Widget(steps))
+    render(<Widget steps={steps} />)
     const widget = new ChatWidgetPO()
     await widget.open()
     widget.expectDialogPresent()
@@ -16,7 +16,7 @@ describe('Чат-бот: взаимодействия (PO)', () => {
   })
 
   test('открытие / закрытие по Esc', async () => {
-    render(Widget(steps))
+    render(<Widget steps={steps} />)
     const widget = new ChatWidgetPO()
     await widget.open()
     await widget.closeByEsc()
@@ -24,7 +24,7 @@ describe('Чат-бот: взаимодействия (PO)', () => {
   })
 
   test('после «Начать разговор» три варианта', async () => {
-    render(Widget(steps))
+    render(<Widget steps={steps} />)
     const widget = new ChatWidgetPO()
     await widget.open()
     await widget.start()
