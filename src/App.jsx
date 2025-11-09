@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import Widget from '@hexlet/chatbot-v2'
 import steps from '../__fixtures__/steps.basic.js'
-if (typeof window !== 'undefined' && !import.meta?.vitest) {
-import('@hexlet/chatbot-v2/styles').catch(() => {})
-}
 
 const App = () => {
   const [form, setForm] = useState({
