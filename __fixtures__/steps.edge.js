@@ -1,4 +1,4 @@
-export const stepsEmpty = []
+const stepsEmpty = []
 
 const stepsNoWelcome = [
   {
