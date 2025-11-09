@@ -109,6 +109,7 @@ const steps = [
       buttons: [
         {
           text: 'Расскажи подробнее',
+
           nextStepId: 'welcome',
           type: 'button',
         },

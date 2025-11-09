@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Widget from '@hexlet/chatbot-v2'
 import steps from '../__fixtures__/steps.basic.js'
 

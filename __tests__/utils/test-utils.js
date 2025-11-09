@@ -24,8 +24,8 @@ export const startConversation = async (user) => {
 }
 
 export const getBackButton = () =>
-  screen.queryByRole('button', { name: /вернуться в начало/i }) 
-  ?? screen.queryByRole('button', { name: /верни меня в начало/i }) 
+  screen.queryByRole('button', { name: /вернуться в начало/i })
+  ?? screen.queryByRole('button', { name: /верни меня в начало/i })
   ?? screen.queryByRole('button', { name: /вернуться назад/i })
 
 export const closeByX = async (user, dialog) => {
