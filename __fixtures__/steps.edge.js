@@ -1,6 +1,6 @@
-const stepsEmpty = []
+export const stepsEmpty = []
 
-const stepsNoWelcome = [
+export const stepsNoWelcome = [
   {
     id: 'start',
     messages: ['Старт без welcome.'],
@@ -8,7 +8,7 @@ const stepsNoWelcome = [
   },
 ]
 
-const stepsGhostTarget = [
+export const stepsGhostTarget = [
   {
     id: 'welcome',
     messages: ['Добро пожаловать'],
@@ -21,7 +21,7 @@ const stepsGhostTarget = [
   },
 ]
 
-const stepsEmptyStep = [
+export const stepsEmptyStep = [
   {
     id: 'welcome',
     messages: ['Привет'],
@@ -34,7 +34,7 @@ const stepsEmptyStep = [
   },
 ]
 
-const stepsMinimal = [
+export const stepsMinimal = [
   {
     id: 'welcome',
     messages: ['Привет'],
@@ -46,11 +46,3 @@ const stepsMinimal = [
     buttons: [{ text: 'Остаться', nextStepId: 'start', type: 'button' }],
   },
 ]
-
-export default {
-  stepsEmpty,
-  stepsNoWelcome,
-  stepsGhostTarget,
-  stepsEmptyStep,
-  stepsMinimal,
-}

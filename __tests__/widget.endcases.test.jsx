@@ -2,14 +2,20 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import * as userEvent from '@testing-library/user-event'
 import Widget from '@hexlet/chatbot-v2'
-import allEdgeSteps from '../__fixtures__/steps.edge.js'
+import {
+  stepsEmpty,
+  stepsNoWelcome,
+  stepsGhostTarget,
+  stepsEmptyStep,
+  stepsMinimal,
+} from '../__fixtures__/steps.edge.js'
 
 const setupUser = () => (userEvent.default ? userEvent.default.setup() : userEvent.setup())
 
 describe('Чат-бот: крайние случаи', () => {
   test('пустой набор шагов: виджет открывается, не падает', async () => {
     const user = setupUser()
-    render(<Widget steps={allEdgeSteps.stepsEmpty} />)
+    render(Widget(stepsEmpty))
 
     const toggleBtn = await screen.findByRole('button', { name: /открыть чат|начать разговор/i })
     await user.click(toggleBtn)
@@ -21,7 +27,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('нет welcome-шага: открытие диалога без падения', async () => {
     const user = setupUser()
-    render(<Widget steps={allEdgeSteps.stepsNoWelcome} />)
+    render(Widget(stepsNoWelcome))
 
     await user.click(await screen.findByRole('button', { name: /открыть чат|начать разговор/i }))
     expect(await screen.findByRole('dialog')).toBeInTheDocument()
@@ -29,7 +35,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('переход на несуществующий шаг: не бросает ошибок, диалог остаётся живым', async () => {
     const user = setupUser()
-    render(<Widget steps={allEdgeSteps.stepsGhostTarget} />)
+    render(Widget(stepsGhostTarget))
 
     await user.click(await screen.findByRole('button', { name: /открыть чат|начать разговор/i }))
     await user.click(await screen.findByRole('button', { name: /начать разговор/i }))
@@ -43,7 +49,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('шаг без сообщений и кнопок: не падает, диалог остаётся', async () => {
     const user = setupUser()
-    render(<Widget steps={allEdgeSteps.stepsEmptyStep} />)
+    render(Widget(stepsEmptyStep))
 
     await user.click(await screen.findByRole('button', { name: /открыть чат|начать разговор/i }))
     await user.click(await screen.findByRole('button', { name: /начать разговор/i }))
@@ -56,7 +62,7 @@ describe('Чат-бот: крайние случаи', () => {
 
   test('быстрые/двойные клики и повторное закрытие не ломают виджет', async () => {
     const user = setupUser()
-    render(<Widget steps={allEdgeSteps.stepsMinimal} />)
+    render(Widget(stepsMinimal))
 
     const toggleBtn = await screen.findByRole('button', { name: /открыть чат|начать разговор/i })
     await user.dblClick(toggleBtn)
