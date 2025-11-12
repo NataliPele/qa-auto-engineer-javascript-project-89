@@ -7,6 +7,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './vitest.setup.js',
     globals: true,
+    coverage: { reporter: ['text', 'lcov'], reportsDirectory: 'coverage' },
     pool: 'vmThreads',
     deps: {
       web: {

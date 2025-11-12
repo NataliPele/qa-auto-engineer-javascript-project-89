@@ -2,7 +2,23 @@
   "name": "@hexlet/code",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "description": "[![CI](https://github.com/NataliPele/qa-auto-engineer-javascript-project-89/actions/workflows/ci.yml/badge.svg)](https://github.com/NataliPele/qa-auto-engineer-javascript-project-89/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=coverage)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)",
+  "keywords": [
+    "hexlet",
+    "testing",
+    "vitest",
+    "react-testing-library",
+    "sonarcloud",
+    "github-actions"
+  ],
+  "homepage": "https://github.com/NataliPele/qa-auto-engineer-javascript-project-89#readme",
+  "bugs": {
+    "url": "https://github.com/NataliPele/qa-auto-engineer-javascript-project-89/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NataliPele/qa-auto-engineer-javascript-project-89.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +26,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:ui": "vitest",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage --pool=vmThreads"
   },
   "dependencies": {
     "@hexlet/chatbot-v2": "^0.2.5",
