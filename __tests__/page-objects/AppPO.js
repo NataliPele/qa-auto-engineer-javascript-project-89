@@ -7,7 +7,6 @@ export class AppPO {
     this.user = setupUser()
   }
 
-  // === ЭЛЕМЕНТЫ ФОРМЫ ===
   getEmailInput() {
     return screen.getByLabelText(/email/i)
   }
@@ -40,7 +39,6 @@ export class AppPO {
     return screen.getByRole('button', { name: /назад/i })
   }
 
-  // === ДЕЙСТВИЯ ===
   async fillForm({
     email = 'user@example.com',
     password = 'secret',
@@ -68,7 +66,6 @@ export class AppPO {
     await this.user.click(this.getBackButton())
   }
 
-  // === ОЖИДАНИЯ ===
   async expectResultTable() {
     const table = await screen.findByRole('table')
     expect(table).toBeInTheDocument()

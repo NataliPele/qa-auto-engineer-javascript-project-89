@@ -3,7 +3,6 @@
 
 ### Project CI and Quality:
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=coverage)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=bugs)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
 

@@ -14,7 +14,6 @@ import { setupUser } from './utils/test-utils.js'
 import { ChatWidgetPO } from './page-objects/ChatWidgetPO.js'
 
 describe('Чат-бот: виджет', () => {
-  // ===== SMOKE =====
 
   describe('smoke', () => {
     test('рендерится и открывается (видна кнопка "Начать разговор")', async () => {
@@ -32,8 +31,6 @@ describe('Чат-бот: виджет', () => {
       expect(startBtn).toBeInTheDocument()
     })
   })
-
-  // ===== ВЗАИМОДЕЙСТВИЯ ЧЕРЕЗ МОДЕЛЬ =====
 
   describe('взаимодействия (PO)', () => {
     test('открытие / закрытие по крестику', async () => {
@@ -102,8 +99,6 @@ describe('Чат-бот: виджет', () => {
         expect(scrollIntoViewMock).toHaveBeenCalled()
       })
     })
-
-    // ===== КРАЙНИЕ СЛУЧАИ ЧЕРЕЗ МОДЕЛЬ =====
 
     describe('крайние случаи (PO)', () => {
       test('пустой набор шагов: виджет открывается, не падает', async () => {
