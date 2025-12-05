@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { screen, within } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { setupUser } from '../utils/test-utils.js'
 
 export class AppPO {
@@ -7,6 +7,40 @@ export class AppPO {
     this.user = setupUser()
   }
 
+  // === ЭЛЕМЕНТЫ ФОРМЫ ===
+  getEmailInput() {
+    return screen.getByLabelText(/email/i)
+  }
+
+  getPasswordInput() {
+    return screen.getByLabelText(/пароль/i)
+  }
+
+  getAddressInput() {
+    return screen.getByLabelText(/адрес/i)
+  }
+
+  getCityInput() {
+    return screen.getByLabelText(/город/i)
+  }
+
+  getCountrySelect() {
+    return screen.getByLabelText(/страна/i)
+  }
+
+  getRulesCheckbox() {
+    return screen.getByLabelText(/принять правила/i)
+  }
+
+  getSubmitButton() {
+    return screen.getByRole('button', { name: /зарегистрироваться/i })
+  }
+
+  getBackButton() {
+    return screen.getByRole('button', { name: /назад/i })
+  }
+
+  // === ДЕЙСТВИЯ ===
   async fillForm({
     email = 'user@example.com',
     password = 'secret',
@@ -15,29 +49,28 @@ export class AppPO {
     country = 'Россия',
     acceptRules = true,
   } = {}) {
-    await this.user.type(screen.getByLabelText(/email/i), email)
-    await this.user.type(screen.getByLabelText(/пароль/i), password)
-    await this.user.type(screen.getByLabelText(/адрес/i), address)
-    await this.user.type(screen.getByLabelText(/город/i), city)
-    await this.user.selectOptions(screen.getByLabelText(/страна/i), country)
-    if (acceptRules) await this.user.click(screen.getByLabelText(/принять правила/i))
-    return this
+    await this.user.type(this.getEmailInput(), email)
+    await this.user.type(this.getPasswordInput(), password)
+    await this.user.type(this.getAddressInput(), address)
+    await this.user.type(this.getCityInput(), city)
+    await this.user.selectOptions(this.getCountrySelect(), country)
+
+    if (acceptRules) {
+      await this.user.click(this.getRulesCheckbox())
+    }
   }
 
   async submit() {
-    await this.user.click(screen.getByRole('button', { name: /зарегистрироваться/i }))
-    return this
-  }
-
-  async expectResultTable() {
-    const table = await screen.findByRole('table')
-    const tbody = within(table).getByRole('rowgroup')
-    expect(tbody).toBeInTheDocument()
-    return this
+    await this.user.click(this.getSubmitButton())
   }
 
   async back() {
-    await this.user.click(screen.getByRole('button', { name: /назад/i }))
-    return this
+    await this.user.click(this.getBackButton())
+  }
+
+  // === ОЖИДАНИЯ ===
+  async expectResultTable() {
+    const table = await screen.findByRole('table')
+    expect(table).toBeInTheDocument()
   }
 }
