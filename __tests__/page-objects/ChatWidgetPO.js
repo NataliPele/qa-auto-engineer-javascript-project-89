@@ -71,7 +71,8 @@ export class ChatWidgetPO {
     await this.user.click(btn)
     try {
       await this.user.click(btn)
-    } catch {
+    }
+    catch {
     }
   }
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import * as userEvent from '@testing-library/user-event'
 
 export const setupUser = () =>
@@ -9,9 +8,9 @@ export const closeByX = async (user, dialog) => {
   if (!dialog) return
 
   const closeBtn =
-    dialog.querySelector('button[aria-label="close"]') ||
-    dialog.querySelector('button[aria-label="закрыть"]') ||
-    dialog.querySelector('button')?.closest('[data-testid="close"]')
+    dialog.querySelector('button[aria-label="close"]')
+    || dialog.querySelector('button[aria-label="закрыть"]')
+    || dialog.querySelector('button')?.closest('[data-testid="close"]')
 
   if (closeBtn) {
     await user.click(closeBtn)
