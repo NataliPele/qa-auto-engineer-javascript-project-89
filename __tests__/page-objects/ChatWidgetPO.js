@@ -7,6 +7,8 @@ export class ChatWidgetPO {
     this.user = setupUser()
   }
 
+  // ===== ЭЛЕМЕНТЫ =====
+
   getToggleButton() {
     return screen.getByRole('button', {
       name: /открыть чат|начать разговор/i,
@@ -17,32 +19,26 @@ export class ChatWidgetPO {
     return screen.getByRole('dialog')
   }
 
+  getStartButton() {
+    return screen.getByRole('button', { name: /начать разговор/i })
+  }
+
+  // ===== ДЕЙСТВИЯ =====
+
   async open() {
-    await this.user.click(await screen.findByRole('button', {
+    const toggleBtn = await screen.findByRole('button', {
       name: /открыть чат|начать разговор/i,
-    }))
+    })
+    await this.user.click(toggleBtn)
   }
 
   async start() {
-    await this.user.click(await screen.findByRole('button', {
-      name: /начать разговор/i,
-    }))
+    const startBtn = await screen.findByRole('button', { name: /начать разговор/i })
+    await this.user.click(startBtn)
   }
 
-  async clickByText(nameRe) {
-    await this.user.click(await screen.findByRole('button', { name: nameRe }))
-  }
-
-  async dblClickToggle() {
-    await this.user.dblClick(await screen.findByRole('button', {
-      name: /открыть чат|начать разговор/i,
-    }))
-  }
-
-  async clickButtonTwice(nameRe) {
-    const btn = await screen.findByRole('button', { name: nameRe })
-    await this.user.click(btn)
-    try { await this.user.click(btn) } catch {} // ок
+  async startDialog() {
+    await this.start()
   }
 
   async closeByX() {
@@ -54,19 +50,54 @@ export class ChatWidgetPO {
     await closeByEsc(this.user)
   }
 
+  async dblClickToggle() {
+    const toggleBtn = await screen.findByRole('button', {
+      name: /открыть чат|начать разговор/i,
+    })
+    await this.user.dblClick(toggleBtn)
+  }
+
+  async clickButtonTwice(nameRe) {
+    // первый клик — по найденной кнопке
+    const first = await screen.findByRole('button', { name: nameRe })
+    await this.user.click(first)
+
+    // второй клик — по оставшейся кнопке, если она ещё есть
+    const second = screen.queryByRole('button', { name: nameRe })
+    if (second) {
+      await this.user.click(second)
+    }
+  }
+
+  async clickByText(textRe) {
+    const btn = await screen.findByRole('button', { name: textRe })
+    await this.user.click(btn)
+  }
+
+  // ===== ОЖИДАНИЯ =====
+
   expectDialogPresent() {
-    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    expect(this.getDialog()).toBeInTheDocument()
   }
 
   expectDialogGone() {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   }
 
+  async expectButton(nameRe) {
+    const btn = await screen.findByRole('button', { name: nameRe })
+    expect(btn).toBeInTheDocument()
+  }
+
   expectButtonAbsent(nameRe) {
-    expect(screen.queryByRole('button', { name: nameRe })).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: nameRe }),
+    ).not.toBeInTheDocument()
   }
 
   expectHasButtons() {
-    expect(screen.queryAllByRole('button').length).toBeGreaterThanOrEqual(1)
+    const dialog = this.getDialog()
+    const buttons = within(dialog).queryAllByRole('button')
+    expect(buttons.length).toBeGreaterThan(0)
   }
 }
