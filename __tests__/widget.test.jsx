@@ -14,12 +14,11 @@ import { setupUser } from './utils/test-utils.js'
 import { ChatWidgetPO } from './page-objects/ChatWidgetPO.js'
 
 describe('Чат-бот: виджет', () => {
-  // ===== SMOKE =====
 
   describe('smoke', () => {
     test('рендерится и открывается (видна кнопка "Начать разговор")', async () => {
       const user = setupUser()
-      render(<Widget steps={steps} />)
+      render(Widget(steps))
 
       const toggleBtn = await screen.findByRole('button', {
         name: /открыть чат|начать разговор/i,
@@ -33,11 +32,9 @@ describe('Чат-бот: виджет', () => {
     })
   })
 
-  // ===== ВЗАИМОДЕЙСТВИЯ ЧЕРЕЗ МОДЕЛЬ =====
-
   describe('взаимодействия (PO)', () => {
     test('открытие / закрытие по крестику', async () => {
-      render(<Widget steps={steps} />)
+      render(Widget(steps))
       const widget = new ChatWidgetPO()
 
       await widget.open()
@@ -52,7 +49,7 @@ describe('Чат-бот: виджет', () => {
     })
 
     test('открытие / закрытие по Esc', async () => {
-      render(<Widget steps={steps} />)
+      render(Widget(steps))
       const widget = new ChatWidgetPO()
 
       await widget.open()
@@ -62,7 +59,7 @@ describe('Чат-бот: виджет', () => {
     })
 
     test('после «Начать разговор» три варианта', async () => {
-      render(<Widget steps={steps} />)
+      render(Widget(steps))
       const widget = new ChatWidgetPO()
 
       await widget.open()
@@ -74,7 +71,7 @@ describe('Чат-бот: виджет', () => {
     })
 
     test('переход на обычный существующий шаг', async () => {
-      render(<Widget steps={steps} />)
+      render(Widget(steps))
       const widget = new ChatWidgetPO()
 
       await widget.open()
@@ -89,7 +86,7 @@ describe('Чат-бот: виджет', () => {
       const scrollIntoViewMock = vi.fn()
       window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
 
-      render(<Widget steps={steps} />)
+      render(Widget(steps))
       const widget = new ChatWidgetPO()
 
       await widget.open()
@@ -102,11 +99,9 @@ describe('Чат-бот: виджет', () => {
       })
     })
 
-    // ===== КРАЙНИЕ СЛУЧАИ ЧЕРЕЗ МОДЕЛЬ =====
-
     describe('крайние случаи (PO)', () => {
       test('пустой набор шагов: виджет открывается, не падает', async () => {
-        render(<Widget steps={stepsEmpty} />)
+        render(Widget(stepsEmpty))
         const widget = new ChatWidgetPO()
 
         await widget.open()
@@ -116,7 +111,7 @@ describe('Чат-бот: виджет', () => {
       })
 
       test('нет welcome-шага: открытие диалога без падения', async () => {
-        render(<Widget steps={stepsNoWelcome} />)
+        render(Widget(stepsNoWelcome))
         const widget = new ChatWidgetPO()
 
         await widget.open()
@@ -125,7 +120,7 @@ describe('Чат-бот: виджет', () => {
       })
 
       test('переход на несуществующий шаг: не бросает ошибок, диалог остаётся живым', async () => {
-        render(<Widget steps={stepsGhostTarget} />)
+        render(Widget(stepsGhostTarget))
         const widget = new ChatWidgetPO()
 
         await widget.open()
@@ -138,7 +133,7 @@ describe('Чат-бот: виджет', () => {
       })
 
       test('шаг без сообщений и кнопок: не падает, диалог остаётся', async () => {
-        render(<Widget steps={stepsEmptyStep} />)
+        render(Widget(stepsEmptyStep))
         const widget = new ChatWidgetPO()
 
         await widget.open()
@@ -152,7 +147,7 @@ describe('Чат-бот: виджет', () => {
       })
 
       test('быстрые/двойные клики и повторное закрытие не ломают виджет', async () => {
-        render(<Widget steps={stepsMinimal} />)
+        render(Widget(stepsMinimal))
         const widget = new ChatWidgetPO()
 
         await widget.dblClickToggle()

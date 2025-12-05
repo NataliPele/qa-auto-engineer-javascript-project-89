@@ -9,14 +9,9 @@ export class ChatWidgetPO {
     this.user = setupUser()
   }
 
-  // ===== РЕНДЕР =====
-
   renderBasic() {
-    // Вариант через JSX
-    render(<Widget steps={steps} />)
+    render(Widget(steps))
   }
-
-  // ===== ЭЛЕМЕНТЫ =====
 
   getToggleButton() {
     return screen.getByRole('button', {
@@ -31,8 +26,6 @@ export class ChatWidgetPO {
   getStartButton() {
     return screen.getByRole('button', { name: /начать разговор/i })
   }
-
-  // ===== ДЕЙСТВИЯ =====
 
   async open() {
     const toggleBtn = await screen.findByRole('button', {
@@ -72,8 +65,7 @@ export class ChatWidgetPO {
     await this.user.click(btn)
     try {
       await this.user.click(btn)
-    } catch {
-      // заглушаем возможные ошибки из-за исчезновения кнопки
+    } catch (e) {
     }
   }
 
@@ -81,8 +73,6 @@ export class ChatWidgetPO {
     const btn = await screen.findByRole('button', { name: textRe })
     await this.user.click(btn)
   }
-
-  // ===== ОЖИДАНИЯ =====
 
   expectDialogPresent() {
     expect(this.getDialog()).toBeInTheDocument()
