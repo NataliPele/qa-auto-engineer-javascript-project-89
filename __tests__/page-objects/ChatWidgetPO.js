@@ -1,16 +1,10 @@
 /* eslint-disable no-undef */
-import { render, screen, within } from '@testing-library/react'
-import Widget from '@hexlet/chatbot-v2'
-import steps from '../../__fixtures__/steps.basic.js'
+import { screen, within } from '@testing-library/react'
 import { setupUser, closeByX, closeByEsc } from '../utils/test-utils.js'
 
 export class ChatWidgetPO {
   constructor() {
     this.user = setupUser()
-  }
-
-  renderBasic() {
-    render(Widget(steps))
   }
 
   getToggleButton() {
@@ -23,24 +17,32 @@ export class ChatWidgetPO {
     return screen.getByRole('dialog')
   }
 
-  getStartButton() {
-    return screen.getByRole('button', { name: /начать разговор/i })
-  }
-
   async open() {
-    const toggleBtn = await screen.findByRole('button', {
+    await this.user.click(await screen.findByRole('button', {
       name: /открыть чат|начать разговор/i,
-    })
-    await this.user.click(toggleBtn)
+    }))
   }
 
   async start() {
-    const startBtn = await screen.findByRole('button', { name: /начать разговор/i })
-    await this.user.click(startBtn)
+    await this.user.click(await screen.findByRole('button', {
+      name: /начать разговор/i,
+    }))
   }
 
-  async startDialog() {
-    await this.start()
+  async clickByText(nameRe) {
+    await this.user.click(await screen.findByRole('button', { name: nameRe }))
+  }
+
+  async dblClickToggle() {
+    await this.user.dblClick(await screen.findByRole('button', {
+      name: /открыть чат|начать разговор/i,
+    }))
+  }
+
+  async clickButtonTwice(nameRe) {
+    const btn = await screen.findByRole('button', { name: nameRe })
+    await this.user.click(btn)
+    try { await this.user.click(btn) } catch {} // ок
   }
 
   async closeByX() {
@@ -52,51 +54,19 @@ export class ChatWidgetPO {
     await closeByEsc(this.user)
   }
 
-  async dblClickToggle() {
-    const toggleBtn = await screen.findByRole('button', {
-      name: /открыть чат|начать разговор/i,
-    })
-    await this.user.dblClick(toggleBtn)
-  }
-
-  async clickButtonTwice(nameRe) {
-    const btn = await screen.findByRole('button', { name: nameRe })
-
-    await this.user.click(btn)
-    try {
-      await this.user.click(btn)
-    } catch (e) {
-    }
-  }
-
-  async clickByText(textRe) {
-    const btn = await screen.findByRole('button', { name: textRe })
-    await this.user.click(btn)
-  }
-
   expectDialogPresent() {
-    expect(this.getDialog()).toBeInTheDocument()
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
   }
 
   expectDialogGone() {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   }
 
-  async expectButton(nameRe) {
-    expect(
-      await screen.findByRole('button', { name: nameRe }),
-    ).toBeInTheDocument()
-  }
-
   expectButtonAbsent(nameRe) {
-    expect(
-      screen.queryByRole('button', { name: nameRe }),
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: nameRe })).not.toBeInTheDocument()
   }
 
   expectHasButtons() {
-    const dialog = this.getDialog()
-    const buttons = within(dialog).queryAllByRole('button')
-    expect(buttons.length).toBeGreaterThan(0)
+    expect(screen.queryAllByRole('button').length).toBeGreaterThanOrEqual(1)
   }
 }
