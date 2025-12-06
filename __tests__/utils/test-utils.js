@@ -9,7 +9,7 @@ export const closeByX = async (user, dialog) => {
   const closeBtn
     = dialog.querySelector('button[aria-label="close"]')
       || dialog.querySelector('button[aria-label="закрыть"]')
-    || dialog.querySelector('button')?.closest('[data-testid="close"]')
+      || dialog.querySelector('button')?.closest('[data-testid="close"]')
 
   if (closeBtn) {
     await user.click(closeBtn)
