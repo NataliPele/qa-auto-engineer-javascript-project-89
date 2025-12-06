@@ -14,7 +14,6 @@ import { setupUser } from './utils/test-utils.js'
 import { ChatWidgetPO } from './page-objects/ChatWidgetPO.js'
 
 describe('Чат-бот: виджет', () => {
-
   describe('smoke', () => {
     test('рендерится и открывается (видна кнопка "Начать разговор")', async () => {
       const user = setupUser()
