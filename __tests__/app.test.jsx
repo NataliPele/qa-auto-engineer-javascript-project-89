@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
 import { render, screen } from '@testing-library/react'
 import App from '../src/App.jsx'
 import { AppPO } from './page-objects/AppPO.js'
-import { ChatWidgetPO } from './page-objects/ChatWidgetPO.js'
+import { WidgetPO } from './page-objects/WidgetPO.js'
 
 describe('Интеграция виджета с хост-приложением (PO)', () => {
   test('рендер приложения не вызывает ошибку', () => {
@@ -28,7 +27,7 @@ describe('Интеграция виджета с хост-приложением
   test('виджет встраивается, запускается и не ломает хост-приложение', async () => {
     render(<App />)
 
-    const widget = new ChatWidgetPO()
+    const widget = new WidgetPO()
     await widget.open()
     await widget.start()
     await widget.closeByEsc()
@@ -43,7 +42,7 @@ describe('Интеграция виджета с хост-приложением
     render(<App />)
 
     const app = new AppPO()
-    const widget = new ChatWidgetPO()
+    const widget = new WidgetPO()
 
     await app.fillForm()
 
