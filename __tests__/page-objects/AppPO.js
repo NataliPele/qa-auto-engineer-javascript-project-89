@@ -1,4 +1,4 @@
-/* eslint-env jest */
+/* global describe, test, expect, vi */
 import { screen } from '@testing-library/react'
 import { setupUser } from '../utils/test-utils.js'
 
