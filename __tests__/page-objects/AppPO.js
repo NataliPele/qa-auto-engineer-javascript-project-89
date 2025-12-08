@@ -1,4 +1,4 @@
-/* eslint-env vitest */
+/* eslint-env jest */
 import { screen } from '@testing-library/react'
 import { setupUser } from '../utils/test-utils.js'
 

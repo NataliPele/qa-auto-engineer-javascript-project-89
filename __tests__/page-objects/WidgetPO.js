@@ -1,4 +1,4 @@
-/* eslint-env vitest */
+/* eslint-env jest */
 import { screen, within } from '@testing-library/react'
 import { setupUser, closeByX, closeByEsc } from '../utils/test-utils.js'
 

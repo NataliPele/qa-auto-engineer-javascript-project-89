@@ -1,4 +1,4 @@
-/* eslint-env vitest */
+/* eslint-env jest */
 import { render, screen } from '@testing-library/react'
 import App from '../src/App.jsx'
 import { AppPO } from './page-objects/AppPO.js'
