@@ -6,12 +6,12 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=bugs)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
 
-Описание проекта
+### Описание проекта
 Проект создан в рамках курса «Инженер по автоматизации тестирования на JavaScript» на платформе Hexlet.io.
 Цель - протестировать готовый React-виджет чат-бота, встроенный в веб-страницу.
 Тесты проверяют корректность работы интерфейса, навигации по шагам, устойчивость к ошибкам и корректную интеграцию виджета в стороннее React-приложение.
 __________________________________________________________________________________________
-Используемые технологии.
+### Используемые технологии.
 
 Основной стек:
 React + Vite — создание и запуск тестового окружения;
@@ -27,14 +27,14 @@ ESLint — статический анализ кода.
 Проверена интеграция чат-бота в внешнее приложение (компонент App).
 
 ___________________________________________________________________________________________
-Как собрать и запустить проект
+### Как собрать и запустить проект
 1. Клонировать репозиторий
-git clone https://github.com/NataliPele/qa-auto-engineer-javascript-project-89.git
-cd qa-auto-engineer-javascript-project-89
+```git clone https://github.com/NataliPele/qa-auto-engineer-javascript-project-89.git```
+```cd qa-auto-engineer-javascript-project-89```
 2. Установить зависимости
-npm ci
+```npm ci```
 3. Запустить dev-окружение
-npm run dev
-После запуска открой в браузере http://localhost:5173 — отобразится форма с интегрированным чат-ботом.
+```npm run dev```
+После запуска открой в браузере ```http://localhost:5173``` — отобразится форма с интегрированным чат-ботом.
 4. Запустить тесты
-npm test
+```npm test```
