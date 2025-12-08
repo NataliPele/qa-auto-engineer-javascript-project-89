@@ -1,4 +1,4 @@
-/* global describe, test, expect, vi */
+/* global expect */
 import { screen } from '@testing-library/react'
 import { setupUser } from '../utils/test-utils.js'
 

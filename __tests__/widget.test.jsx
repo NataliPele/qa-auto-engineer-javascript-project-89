@@ -1,4 +1,4 @@
-/* global describe, test, expect, vi */
+/* global describe, test, expect, afterEach  */
 import { render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import Widget from '@hexlet/chatbot-v2'

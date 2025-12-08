@@ -1,4 +1,4 @@
-/* global describe, test, expect, vi */
+/* global expect */
 import { screen, within } from '@testing-library/react'
 import { setupUser, closeByX, closeByEsc } from '../utils/test-utils.js'
 
