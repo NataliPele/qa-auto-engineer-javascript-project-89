@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import Widget from '@hexlet/chatbot-v2'
