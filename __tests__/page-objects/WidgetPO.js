@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-env vitest */
 import { screen, within } from '@testing-library/react'
 import { setupUser, closeByX, closeByEsc } from '../utils/test-utils.js'
 
