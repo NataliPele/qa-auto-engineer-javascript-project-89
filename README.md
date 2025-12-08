@@ -1,11 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/NataliPele/qa-auto-engineer-javascript-project-89/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/NataliPele/qa-auto-engineer-javascript-project-89/actions)
 
-### Project CI and Quality:
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=bugs)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NataliPele_qa-auto-engineer-javascript-project-89&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=NataliPele_qa-auto-engineer-javascript-project-89)
-
 ### Описание проекта
 Проект создан в рамках курса «Инженер по автоматизации тестирования на JavaScript» на платформе Hexlet.io.
 Цель - протестировать готовый React-виджет чат-бота, встроенный в веб-страницу.
